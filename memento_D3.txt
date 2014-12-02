@@ -1,0 +1,421 @@
+//memento_D3
+
+//Télécharger d3.v3.js (version standard pour dev) ou d3.v3.min.js (pour prod)
+//Librairie stockée dans le repertoire projets > D3 > d3
+
+//Structure du répertoire de travail :
+D3 =
+	> d3 (librairie version standard)
+	> projet1 (répertoire du projet : data,...)
+		> index.html (page du projet)
+
+// 1 - Référencer
+//dans le head de notre index.html 
+// on fait le lien <script type="text/javascript" src="../d3/d3.v3.js"></script>
+
+
+// 2 - Lier les données
+// données en entrées, propriétés visuelles en sorties = bindings + mapping rules
+
+//lier des données au DOM = méthode selection.data() 
+// 2 pré-requis : les données et la sélection d'un élément du DOM
+
+/***************************************************************************************
+Exemple :
+
+d3.select(“body”) — Trouve l’élément body dans le DOM et 
+transmet sa référence au prochain maillon de la chaîne.
+
+.selectAll(“p”) — Sélectionne tous les paragraphes dans le DOM.
+Comme aucun paragraphe n’existe pour l’instant, ça retourne une sélection vide.
+Voyez cette sélection vide comme représentant les paragraphes qui vont bientôt exister.
+
+.data(dataset) — Compte et analyse les valeurs des données.
+Il y a cinq valeurs dans notre ensemble de données,
+ donc à partir de là, tout ce qui se passe sera exécuté cinq fois, une fois par valeur.
+
+.enter() — Pour créer de nouveaux éléments liés à des données, 
+on doit utiliser la méthode enter(). Cette méthode jète un oeil au DOM,
+ puis aux données qui lui ont été transmises. S’il y a plus de données 
+ que d’éléments DOM correspondants, alors enter() crée un nouvel élément 
+ placeholder sur lequel vous pourrez faire jouer votre magie. 
+ Elle transmet ensuite une référence à ce nouveau placeholder 
+ au prochain maillon de la chaîne.
+
+.append(“p”) — Prend la sélection placeholder créée par enter() 
+et insère un élément p dans le DOM. Hourra ! 
+Elle transmet ensuite une référence de l’élément qu’elle vient de
+ créer au prochain maillon de la chaîne.
+
+.text(“New paragraph!”) — Prend la référence au nouvellement créé p et insert un texte.
+
+****************************************************************************************/
+
+// 3 - Utiliser les données
+.text(function(d) { return d; }); // on remplace la dernière ligne .text("New Paragraph!");
+// c'est un exemple de fonction
+/****************************************************************************************
+Exemple :
+function(valeur_en_entrée){
+//Traitement
+return valeur_en_sortie;
+}
+// la fonction .text() peut prendre en argument:
+ soit une chaine .text("texte");
+ soit une fonction .text(someFunction()){};
+ soit une fonction anonyme .text(function(d){ return d;});
+****************************************************************************************/
+
+// 3 - Utiliser les données (au delà du texte)
+.style("color","red");
+.attr("class","bar");
+
+/****************************************************************************************/
+Exemple : Dessiner des divs = Graphique en barres
+
+//D3
+var dataset = [ 5, 10, 15, 20, 25 ];
+d3.select("body").selectAll("div")
+    .data(dataset)
+    .enter()
+    .append("div")
+    .attr("class", "bar");
+    
+//CSS
+div.bar {
+    display: inline-block;
+    width: 20px;
+    height: 75px;   /* On écrasera ça plus tard */
+    background-color: teal;
+}
+
+//pour donner une classe "bar" à nos divs on fait, le style s'applique :
+.attr("class","bar");
+
+
+
+// 4 - Introduction à SVG (Scalable Vector Graphics)
+// générer des dessins avec du code et d3
+<rect x="0" y="0" width="500" height="50"/> //dessin rectangle (coordonnées en haut à gauche)
+<ellipse cx="250" cy="25" rx="100" ry="25"/> // dessin ellipse
+<line x1="0" y1="0" x2="500" y2="50" stroke="black"/> // dessin de ligne
+
+
+// 5 - Les types de données...blabla Javascript
+// déclarations var var var , tableaux, objets...
+//Exemple d'objet :
+var fruits = [
+    {
+        kind: "grape",
+        color: "red",
+        quantity: 12,
+        tasty: true
+    },
+    {
+        kind: "kiwi",
+        color: "brown",
+        quantity: 98,
+        tasty: true
+    },
+    {
+        kind: "banana",
+        color: "yellow",
+        quantity: 0,
+        tasty: true
+    }
+];
+
+// 6 - Le JSON et GeoJSON ce qui nous intérèsse plus particulièrement
+// JavaScript Object Notation = organisation des données en notation JavaScript
+//Exemple de notation JSON : ATTENTION aux doubles cotes => chaines de caractères
+var jsonFruit = {
+    "kind": "grape",
+    "color": "red",
+    "quantity": 12,
+    "tasty": true
+};
+
+//Exemple de GeoJSON (toute données GeoJSON est JSON et toute JSON est une donnée JavaScript)
+//un point Lon/Lat
+var geodata = {
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [ 150.1282427, -24.471803 ]
+            },
+            "properties": {
+                "type": "town"
+            }
+        }
+    ]
+};
+
+/****************************************************************************************/
+
+/*				GRAPHIQUE A BARRES
+
+/****************************************************************************************/
+
+var dataset = [ 5, 10, 13, 19, 21, 25, 22, 18, 15, 13,
+                11, 12, 15, 20, 18, 17, 16, 18, 23, 25 ];
+
+
+/* Ancien graphique (brut)
+d3.select("body").selectAll("div")
+    .data(dataset)
+    .enter()
+    .append("div")
+    .attr("class", "bar")
+    .style("height", function(d) {
+        var barHeight = d * 5;
+        return barHeight + "px";
+    });
+*/
+
+var w = 500; //SVG Width
+var h = 100; // SVG Height
+var barPadding = 1;  // pour espacer les barres proportionnellement
+
+// Crée l'élément SVG
+var svg = d3.select("body")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
+
+//on génère des rect et on les ajoute à svg, c'est dynamique si on a 5 ou 100 valeurs...
+svg.selectAll("rect")
+   .data(dataset)
+   .enter()
+   .append("rect")
+   .attr("y", function(d) {
+    return h - d * 4;  // Hauteur moins la valeur de la donnée
+	})
+   .attr("width", w / dataset.length - barPadding)
+   .attr("height", function(d) {
+    return d * 4;  // Juste la valeur de la donnée
+	})
+	.attr("x", function(d, i) {
+    return i * (w / dataset.length);
+	})
+	.attr("fill", function(d) {
+    return "rgb(0, 0, " + (d * 10) + ")";
+	});
+
+//label de valeurs et styles des labels
+svg.selectAll("text")
+   .data(dataset)
+   .enter()
+   .append("text")
+   .text(function(d) {
+        return d;
+   })
+   .attr("x", function(d, i) {
+        return i * (w / dataset.length) + 5;  // +5
+   })
+   .attr("y", function(d) {
+        return h - (d * 4) + 15;              // +15
+   })
+   .attr("font-family", "sans-serif")
+   .attr("font-size", "11px")
+   .attr("fill", "white");
+
+
+/****************************************************************************************/
+
+/*				NUAGE DE POINTS
+//Le nuage de point est un type courant de visualisation qui représente
+deux ensembles de valeurs correspondantes sur deux axes différents :
+ horizontal et vertical, x et y.
+/****************************************************************************************/
+var dataset = [
+                  [ 5,     20 ],
+                  [ 480,   90 ],
+                  [ 250,   50 ],
+                  [ 100,   33 ],
+                  [ 330,   95 ],
+                  [ 410,   12 ],
+                  [ 475,   44 ],
+                  [ 25,    67 ],
+                  [ 85,    21 ],
+                  [ 220,   88 ]
+              ];
+
+// Taille du "canvas"
+var w = 500; //SVG Width
+var h = 100; // SVG Height
+
+// Crée l'élément SVG
+var svg = d3.select("body")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
+            
+//chaque point(x,y) est un cercle...
+svg.selectAll("circle")
+   .data(dataset)
+   .enter()
+   .append("circle")            
+   .attr("cx", function(d) {
+        return d[0];
+   })
+   .attr("cy", function(d) {
+        return d[1];
+   })
+//   .attr("r", 5); //rayon fixe = 5
+	.attr("r", function(d) {
+    return Math.sqrt(h - d[1]);
+	}); //rayon variable selon "y"
+
+//labels
+svg.selectAll("text")
+   .data(dataset)
+   .enter()
+   .append("text")
+   .text(function(d) {
+        return d[0] + "," + d[1];
+   })
+   .attr("x", function(d) {
+        return d[0];
+   })
+   .attr("y", function(d) {
+        return d[1];
+   })
+   .attr("font-family", "sans-serif")
+   .attr("font-size", "11px")
+   .attr("fill", "red");	
+
+// Exemple de requêtes sur les valeurs :
+d[0] retourne 5
+d[1] retourne 20
+dataset[5] retourne [410, 12]
+dataset[5][1] retourne 12
+
+
+/****************************************************************************************
+
+/*		    						LES ECHELLES (AXES X/Y) 							*/
+
+****************************************************************************************/
+
+
+			//Width and height
+			var w = 500;
+			var h = 300;
+			var padding = 30;
+			
+			/*
+			//Static dataset
+			var dataset = [
+							[5, 20], [480, 90], [250, 50], [100, 33], [330, 95],
+							[410, 12], [475, 44], [25, 67], [85, 21], [220, 88],
+							[600, 150]
+						  ];
+			*/
+			
+			//Dynamic, random dataset
+			var dataset = [];					//Initialize empty array
+			var numDataPoints = 50;				//Number of dummy data points to create
+			var xRange = Math.random() * 1000;	//Max range of new x values
+			var yRange = Math.random() * 1000;	//Max range of new y values
+			for (var i = 0; i < numDataPoints; i++) {					//Loop numDataPoints times
+				var newNumber1 = Math.round(Math.random() * xRange);	//New random integer
+				var newNumber2 = Math.round(Math.random() * yRange);	//New random integer
+				dataset.push([newNumber1, newNumber2]);					//Add new number to array
+			}
+
+			//Create scale functions
+			var xScale = d3.scale.linear()
+								 .domain([0, d3.max(dataset, function(d) { return d[0]; })])
+								 .range([padding, w - padding * 2]);
+
+			var yScale = d3.scale.linear()
+								 .domain([0, d3.max(dataset, function(d) { return d[1]; })])
+								 .range([h - padding, padding]);
+
+			var rScale = d3.scale.linear()
+								 .domain([0, d3.max(dataset, function(d) { return d[1]; })])
+								 .range([2, 5]);
+
+			//Define X axis
+			var xAxis = d3.svg.axis()
+							  .scale(xScale)
+							  .orient("bottom")
+							  .ticks(5);
+
+			//Define Y axis
+			var yAxis = d3.svg.axis()
+							  .scale(yScale)
+							  .orient("left")
+							  .ticks(5);
+
+			//Create SVG element
+			var svg = d3.select("body")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h);
+
+			//Create circles
+			svg.selectAll("circle")
+			   .data(dataset)
+			   .enter()
+			   .append("circle")
+			   .attr("cx", function(d) {
+			   		return xScale(d[0]);
+			   })
+			   .attr("cy", function(d) {
+			   		return yScale(d[1]);
+			   })
+			   .attr("r", function(d) {
+			   		return rScale(d[1]);
+			   });
+
+			/*
+			//Create labels
+			svg.selectAll("text")
+			   .data(dataset)
+			   .enter()
+			   .append("text")
+			   .text(function(d) {
+			   		return d[0] + "," + d[1];
+			   })
+			   .attr("x", function(d) {
+			   		return xScale(d[0]);
+			   })
+			   .attr("y", function(d) {
+			   		return yScale(d[1]);
+			   })
+			   .attr("font-family", "sans-serif")
+			   .attr("font-size", "11px")
+			   .attr("fill", "red");
+		  	*/
+			
+			//Create X axis
+			svg.append("g")
+				.attr("class", "axis")
+				.attr("transform", "translate(0," + (h - padding) + ")")
+				.call(xAxis);
+			
+			//Create Y axis
+			svg.append("g")
+				.attr("class", "axis")
+				.attr("transform", "translate(" + padding + ",0)")
+				.call(yAxis);
+
+
+
+
+
+
+
+/*****************************************************************************************
+/*																					    */
+/*		http://chimera.labs.oreilly.com/books/1230000000345/ch12.html					*/
+/*																						*/
+/*			CHAPTER 12 = Geomapping (SCOTT MURRAY)										*/
+/*																						*/
+/*																						*/
+*****************************************************************************************/
+
