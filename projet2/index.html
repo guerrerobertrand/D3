@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>projet 2 - D3 Geomapping</title>
+        <script type="text/javascript" src="../d3/d3.v3.js"></script>
+  		<link rel="stylesheet" href="projet2.css" />
+  		
+  		<style>
+  			body{
+  				background:#fcfcfa;
+  			}
+  			.land{
+  				fill:#262;
+  			}
+  			.boundary{
+  				fill:none;
+  				stroke:#fff;
+  				stroke-width: 0.5px;
+  			}  		
+  		</style>
+  		
+    </head>
+    <body>
+        <script type="text/javascript">
+            // Votre joli code D3 viendra se loger ici
+			//d3.select("body").append("p").text("New paragraph!");
+
+		//Nouvelle visu = largeur et hauteur
+		var w = 1000;
+		var h = 1000;
+
+		//Création du nouvel élément SVG
+		var svg = d3.select("body")
+					.append("svg")
+					.attr("width", w)
+					.attr("height", h);
+
+		//changement de projection
+		var projection = d3.geo.orthographic()
+			.scale(5000) //échelle 
+			.translate([w/2,h/2]) // dimensions
+			.rotate([-2,-46]) // France au centre
+			.clipAngle(90)
+			.precision(.1);
+		
+		// nouveau chemin vers données géographiques (attention projection par défaut =albersUSA)
+		var path = d3.geo.path()
+			.projection(projection);
+		
+		
+		//It’s cleaner and more common to keep the geodata in a separate file and load it in using d3.json()
+		d3.json("data/departement5k.json", function(json){
+			svg.selectAll("path")
+				.data(json.features)
+				.enter()
+				.append("path")
+				.attr("d",path);
+		});
+
+		</script>
+    </body>
+</html>
