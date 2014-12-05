@@ -50,7 +50,7 @@
 		
 		
 		//It’s cleaner and more common to keep the geodata in a separate file and load it in using d3.json()
-		d3.json("data/departement5k.json", function(json){
+		d3.json("data/departement.json", function(json){
 			svg.selectAll("path")
 				.data(json.features)
 				.enter()

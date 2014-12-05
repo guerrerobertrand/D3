@@ -4,7 +4,9 @@
 <head>
 	<meta charset="utf-8">
 	<title>Fichier de base D3</title>
-	<script src="http://d3js.org/d3.v3.js"type="text/javascript"></script>
+	<script src="http://d3js.org/d3.v3.js"type="text/javascript">
+		//appel de la bibliotheque
+		</script>
 	<script type="text/javascript">
 		function draw(data) {
 	    // le code de dessin viendra se placer ici
@@ -15,6 +17,7 @@
 <body>
 	<script type="text/javascript">
     	d3.json("data/data.json", draw);
+    	//Le script de chargement des données, qui lancera le dessin une fois terminé
 	</script>
 </body>
 

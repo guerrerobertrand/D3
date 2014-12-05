@@ -12,8 +12,8 @@
             /* Test 1
             d3.select("body").append("p").text("New paragraph!"); 
             */
-         /*  var dataset = [ 5, 10, 13, 19, 21, 25, 22, 18, 15, 13,
-           11, 12, 15, 20, 18, 17, 16, 18, 23, 25 ];*/
+           var dataset = [ 5, 10, 13, 19, 21, 25, 22, 18, 15, 13,
+           11, 12, 15, 20, 18, 17, 16, 18, 23, 25 ];
 			/* //graphique1
 				d3.select("body").selectAll("div")
 				.data(dataset)
@@ -24,7 +24,7 @@
 			    var barHeight = d * 5;  // On agrandit 5 fois l'échelle
 			    return barHeight + "px";
 				});*/
-/* //graphique2				
+ //graphique2				
 				// Largeur et hauteur
 var w = 500; //SVG Width
 var h = 100; // SVG Height
@@ -73,9 +73,9 @@ svg.selectAll("text")
    .attr("font-size", "11px")
    .attr("fill", "white")
    .attr("text-anchor", "middle");			
-*/
 
-/* //graphique3
+/*
+ //graphique3
 var dataset = [
                   [ 5,     20 ],
                   [ 480,   90 ],
@@ -132,14 +132,17 @@ svg.selectAll("text")
    .attr("font-family", "sans-serif")
    .attr("font-size", "11px")
    .attr("fill", "red");	
-	*/
+	
+*/
 
+
+/****************************
 //graphique4
 //Width and height
 			var w = 500;
 			var h = 300;
 			var padding = 30;
-			
+*/			
 			/*
 			//Static dataset
 			var dataset = [
@@ -148,7 +151,7 @@ svg.selectAll("text")
 							[600, 150]
 						  ];
 			*/
-			
+/*			
 			//Dynamic, random dataset
 			var dataset = [];					//Initialize empty array
 			var numDataPoints = 50;				//Number of dummy data points to create
@@ -237,8 +240,8 @@ svg.selectAll("text")
 				.attr("class", "axis")
 				.attr("transform", "translate(" + padding + ",0)")
 				.call(yAxis);
-
-				
+*/
+	
         </script>
         <p>
 	        <svg width="500" height="50">
