@@ -6,7 +6,7 @@
             "title":"Chargé d'études techniques",
             "from":"2013-02-01",
             "to":"2014-07-31",
-            "description":"Projet Equipex GeoSud : « Infrastructure nationale d'imagerie satellitaire » \n Rédaction de cahier des charges, spécifications \n Standards : ISO19115, OGC WPS",
+            "description":"\n Projet Equipex GeoSud : « Infrastructure nationale d'imagerie satellitaire » \n \n Rédaction de cahier des charges, spécifications \n Standards : ISO19115, OGC WPS",
             "default_item":false
         },
         {
@@ -15,7 +15,7 @@
             "title":"Géomaticien/Développeur",
             "from":"2010-01-01",
             "to":"2014-07-31",
-            "description":"Projet SIEL : « Système d'Information sur l'environnement à l'Echelle Locale » \n SIG : ArcGIS \n Base de données : Access \n Langages : VB6, arcObjects, SVN \n Encadrement de 2 stages Java/JEE",
+            "description":"\n Projet SIEL : « Système d'Information sur l'environnement à l'Echelle Locale » \n \n SIG : ArcGIS \n Base de données : Access \n Langages : VB6, arcObjects, SVN \n Encadrement de 2 stages Java/JEE",
             "default_item":false
         },
         {
@@ -24,7 +24,7 @@
             "title":"Géomaticien/Développeur",
             "from":"2005-06-01",
             "to":"2005-08-31",
-            "description":"SIG : Generic Mapping Tools (GMT) \n Langages : C, Fortran, Bash",
+            "description":"\n SIG : Generic Mapping Tools (GMT) \n Langages : C, Fortran, Bash",
             "default_item":false
         },
         {
@@ -33,7 +33,7 @@
             "title":"Administrateur de base de données",
             "from":"2007-10-01",
             "to":"2009-12-31",
-            "description":"Observatoire de Recherche en Environnement « ORE Hybam » sur l'hydro-géodynamique du bassin Amazonien \n SIG : ArcGIS \n SGBD : Postgresql \n Langages : VBA, Python \n Divers : Formateur ArcGIS",
+            "description":"\n Observatoire de Recherche en Environnement « ORE Hybam » sur l'hydro-géodynamique du bassin Amazonien \n \n SIG : ArcGIS \n SGBD : Postgresql \n Langages : VBA, Python \n Divers : Formateur ArcGIS",
             "default_item":false
         },        
         {
@@ -42,7 +42,7 @@
             "title":"Dessinateur DAO",
             "from":"2006-02-01",
             "to":"2006-07-31",
-            "description":"SIG/DAO : Microstation",
+            "description":"\n SIG/DAO : Microstation",
             "default_item":false
         },  
         {
@@ -51,7 +51,7 @@
             "title":"Géomaticien",
             "from":"2007-04-01",
             "to":"2007-09-30", 
-            "description":"SIG : ArcGIS \n Divers : ENVI, Matlab",
+            "description":"\n SIG : ArcGIS \n Divers : ENVI, Matlab",
             "default_item":false
         },
         {
@@ -60,7 +60,7 @@
             "title":"Géomaticien/Hydrologue",
             "from":"2004-03-01",
             "to":"2004-08-31",
-            "description":"SIG : Arcview",
+            "description":"\n SIG : Arcview",
             "default_item":false
         },
         {
@@ -69,7 +69,7 @@
             "title":"Géomaticien",
             "from":"2003-07-01",
             "to":"2003-08-31", 
-            "description":"SIG : Mapinfo \n Base de données : Access",
+            "description":"\n SIG : Mapinfo \n Base de données : Access",
             "default_item":false
         }
     ],
@@ -80,16 +80,16 @@
             "title":"Concepteur/Développeur Java/JEE",
             "from":"2014-11-05",
             "to":"2015-06-04",
-            "description":"Langages : Java/JEE, Javascript/AJAX/Jquery, HTML5/CSS3, SQL \n Divers : Git/Github",
+            "description":"\n Langages : Java/JEE, Javascript/AJAX/Jquery, HTML5/CSS3, SQL \n Divers : Git/Github",
             "default_item":true
         },
         {
             "type":"Spécialisation en Système d'Information Géographique (SIG)",
             "institution":"Ecole Privée des Techniques Géographiques (EPTEGE)",
-            "title":"Licence professionnelle",
+            "title":"Licence professionnelle en SIG",
             "from":"2006-09-01",
             "to":"2007-09-30",
-            "description":"SIG : ArcGIS, MapInfo, QGIS, MapServer, Postgis",
+            "description":"\n SIG : ArcGIS, MapInfo, QGIS, MapServer, Postgis",
             "default_item":false
         },
         {
@@ -98,7 +98,7 @@
             "title":"DESS Risques Géologiques, Imagerie, et Cartographie",
             "from":"2003-09-15",
             "to":"2004-09-30",
-            "description":"SIG : ArcGIS, Generic Mapping Tools (GMT) \n Divers : ENVI",
+            "description":"\n SIG : ArcGIS, Generic Mapping Tools (GMT) \n Divers : ENVI",
             "default_item":false
         },
         {
@@ -107,7 +107,7 @@
             "title":"Maîtrise de Géologie",
             "from":"2002-09-01",
             "to":"2003-09-01",
-            "description":"SIG : Mapinfo",
+            "description":"\n SIG : Mapinfo",
             "default_item":false
         }
     ]
